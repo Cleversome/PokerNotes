@@ -16,7 +16,36 @@ typedef enum HandPhase {
     HandPhaseShowdown
 } HandPhase;
 
+typedef enum HandAction {
+    HandActionNone,
+    HandActionPostSmallBlind,
+    HandActionPostBigBlind,
+    HandActionCheck,
+    HandActionBet,
+    HandActionRaise,
+    HandActionFold,
+    HandActionMuck,
+    HandActionDonk
+} HandAction;
+
+typedef enum HandResult {
+    HandResultWin,
+    HandResultLoose,
+    HandResultTie
+} HandResult;
+
+extern NSString * const PlayerStackSizeKey;     // NSUInteger
+extern NSString * const PlayerNameKey;          // NSString
+extern NSString * const PlayerLastActionKey;    // HandAction
+
 @interface PokerHand : NSObject
-@property (strong, nonatomic) NSDictionary *players;
-@property int index;
+@property (strong, nonatomic) NSArray *players; // of dictionaries. Might be actual player objects
+@property NSUInteger smallBlind;
+@property NSUInteger bigBlind;
+@property NSUInteger ante;
+@property NSUInteger pot;
+@property HandPhase currentHandPhase;
+@property NSUInteger currentActionIndex;
+@property NSUInteger currentButtonIndex;
+@property NSMutableArray *handLog;
 @end
